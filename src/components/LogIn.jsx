@@ -1,15 +1,9 @@
 //importing useNavigate
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
-const LogIn = () => {
+const LogIn = ({ setEmailId, setPassword, password, emailId }) => {
   //create  navigate function
   const navigate = useNavigate();
-
-  //state for email inputfield
-  const [emailId, setEmailId] = useState("");
-  //state for password inputfield
-  const [password, setPassword] = useState("");
 
   const submitLogIn = (event) => {
     event.preventDefault();
@@ -20,7 +14,7 @@ const LogIn = () => {
   const changeEmail = (event) => {
     setEmailId(event.target.value);
   };
-  const changeSalsana = (event) => {
+  const changePassword = (event) => {
     setPassword(event.target.value);
   };
 
@@ -31,16 +25,17 @@ const LogIn = () => {
           <span>Welcome,</span>
           <br /> To Your Smart Contact Manager <br />
           <input
-            type="text"
+            id="email"
             placeholder="Email Id"
             onChange={changeEmail}
             value={emailId}
           />
           <br />
           <input
+            id="password"
             type="text"
             placeholder="Password"
-            onChange={changeSalsana}
+            onChange={changePassword}
             value={password}
           />
           <br />
