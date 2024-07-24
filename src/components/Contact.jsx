@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 
-const Contact = ({ contacts }) => {
+const Contact = ({ contacts, setContacts}) => {
+
+  //for delete functionality
+  const deleteBtn = (id) => {
+    //it filter the contacts and give new array which doesnot include the id which is passed in deletebtn argument.
+    setContacts(contacts.filter(contact => contact.id !== id))
+  }
   return (
     <>
       <nav>
@@ -27,7 +33,7 @@ const Contact = ({ contacts }) => {
         {contacts.map((contact) => (
           <li key={contact.id}>
             {contact.FullName} - {contact.Email} - {contact.PhoneNumber} -{" "}
-            {contact.Address}
+            {contact.Address} <button onClick={() => deleteBtn(contact.id)}>Delete</button>
           </li>
         ))}
       </ul>

@@ -27,9 +27,9 @@ function App() {
 
   //login component's state
   //state for email inputfield
-  const [emailId, setEmailId] = useState("");
+  const [emailId, setEmailId] = useState("hello");
   //state for password inputfield
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("hello");
 
   //Addinfo component's state
   const [name, setName] = useState("");
@@ -38,8 +38,8 @@ function App() {
   const [address, setAddress] = useState("");
 
   //search component's state
-  const [btnClicked, setBtnClicked] = useState(false);
-  
+  const [searchInfo, setSearchInfo] = useState("");
+
   return (
     <>
       <Routes>
@@ -54,13 +54,17 @@ function App() {
             />
           }
         />
-        <Route path="/contact" element={<Contact contacts={contacts} />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/groups" element={<Group />} />
+        <Route path="/signup" element={<div loading />} />
+        <Route path="/contact" element={<Contact contacts={contacts} setContacts={setContacts}/>} />
+        <Route path="/groups" element={<Group contacts={contacts} />} />
         <Route
           path="/search"
           element={
-            <Search setBtnClicked={setBtnClicked} btnClicked={btnClicked} />
+            <Search
+              setSearchInfo={setSearchInfo}
+              searchInfo={searchInfo}
+              contacts={contacts}
+            />
           }
         />
         <Route
