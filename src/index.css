@@ -3,3 +3,19 @@
     background-size: cover;
 
 }
+
+body{
+    background-image: url(photos/img1.jpg);
+    background-size: cover;
+}
+.contactInfo{
+    font-size: 1.5rem;
+}
+.headingContact{
+    font-size: 3rem;
+}
+
+.logInBtn:hover{
+    background-color: rgb(23, 203, 122);
+
+}

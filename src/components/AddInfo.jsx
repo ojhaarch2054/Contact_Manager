@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const AddInfo = ({
   setAddress,
   setName,
@@ -22,11 +24,22 @@ const AddInfo = ({
       PhoneNumber: number,
       Address: address,
     };
-    setContacts(contacts.concat(newContacts));
-    setName("");
-    setEmail("");
-    setNumber("");
-    setAddress("");
+    if (name.length == 0) {
+      alert("Please Enter Full Name.");
+    } else if (email.length == 0) {
+      alert("Please Enter Email Id");
+    } else if (number.length == 0) {
+      alert("Please Enter Phone Number.");
+    } else if (address.length == 0) {
+      alert("Please Enter Address.");
+    } else {
+      setContacts(contacts.concat(newContacts));
+      alert(`${name}, added`);
+      setName("");
+      setEmail("");
+      setNumber("");
+      setAddress("");
+    }
   };
   const nameChange = (event) => {
     setName(event.target.value);
@@ -41,15 +54,37 @@ const AddInfo = ({
     setAddress(event.target.value);
   };
 
-
-  //for btn functionality
-  const addBtn = () => {
-    window.alert(`${name} added to the contacts.`);
-  }
-
   return (
     <>
-      <form className="align-items-center col-auto" onSubmit={addInfo}>
+      <nav>
+        <ul className="nav justify-content-end mt-3 ">
+          <li className="nav-item">
+            <Link to="/home" className="nav-link">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/about" className="nav-link">
+              About
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" className="nav-link">
+              Contacts
+            </Link>
+          </li>
+          <li>
+            <Link to="/" className="nav-link">
+              Log Out
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      <form
+        className=" col-auto w-50 d-flex mt-5 flex-column text-white"
+        onSubmit={addInfo}
+      >
         <label className="col-sm-2 col-form-label">Full Name: </label>
         <input
           type="text"
@@ -60,7 +95,7 @@ const AddInfo = ({
         <br />
         <label className="col-sm-2 col-form-label">Email: </label>
         <input
-          type="text"
+          type="email"
           className="form-control"
           value={email}
           onChange={emailChange}
@@ -68,7 +103,7 @@ const AddInfo = ({
         <br />
         <label className="col-sm-2 col-form-label">Phone Number: </label>
         <input
-          type="text"
+          type="number"
           className="form-control"
           value={number}
           onChange={numberChange}
@@ -80,7 +115,7 @@ const AddInfo = ({
           value={address}
           onChange={addressChange}
         />
-        <button type="submit" className="btn btn-success" onClick={addBtn}>
+        <button type="submit" className="btn btn-success mt-4">
           Add
         </button>
       </form>

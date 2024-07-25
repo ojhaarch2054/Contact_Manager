@@ -1,10 +1,11 @@
 import LogIn from "./components/LogIn";
 import Contact from "./components/Contact";
 import { Routes, Route } from "react-router-dom";
-import Search from "./components/Search";
-import Group from "./components/Group";
 import AddInfo from "./components/AddInfo";
 import { useState } from "react";
+import Home from "./components/HomePage";
+import About from "./components/About";
+import SignUp from "./components/SignUp";
 
 function App() {
   //state to store contact info
@@ -23,13 +24,32 @@ function App() {
       PhoneNumber: "85478585456",
       Address: "Yliopistokatu",
     },
+    {
+      id: "3",
+      FullName: "harry",
+      Email: "harry@gmail.com",
+      PhoneNumber: "8526995456",
+      Address: "Austria",
+    },
+    {
+      id: "4",
+      FullName: "Raman",
+      Email: "Raman@gmail.com",
+      PhoneNumber: "8526985456",
+      Address: "vienna",
+    },
   ]);
 
   //login component's state
   //state for email inputfield
-  const [emailId, setEmailId] = useState("hello");
+  const [emailId, setEmailId] = useState("");
   //state for password inputfield
-  const [password, setPassword] = useState("hello");
+  const [password, setPassword] = useState("");
+
+  //SignUp Component's state
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
+  const [signUpPassword2, setSignUpPassword2] = useState("")
 
   //Addinfo component's state
   const [name, setName] = useState("");
@@ -54,19 +74,8 @@ function App() {
             />
           }
         />
-        <Route path="/signup" element={<div loading />} />
-        <Route path="/contact" element={<Contact contacts={contacts} setContacts={setContacts}/>} />
-        <Route path="/groups" element={<Group contacts={contacts} />} />
-        <Route
-          path="/search"
-          element={
-            <Search
-              setSearchInfo={setSearchInfo}
-              searchInfo={searchInfo}
-              contacts={contacts}
-            />
-          }
-        />
+         <Route path="/signUp" element={<SignUp signUpEmail={signUpEmail} signUpPassword={signUpPassword} setSignUpEmail={setSignUpEmail} setSignUpPassword={setSignUpPassword} signUpPassword2={signUpPassword2} setSignUpPassword2={setSignUpPassword2} />} />
+        <Route path="/home" element={<Home />} />
         <Route
           path="/add"
           element={
@@ -84,6 +93,19 @@ function App() {
             />
           }
         />
+        <Route path="/about" element={<About />} />
+        <Route
+          path="/contact"
+          element={
+            <Contact
+              contacts={contacts}
+              setContacts={setContacts}
+              searchInfo={searchInfo}
+              setSearchInfo={setSearchInfo}
+            />
+          }
+        />
+        <Route path="/signup" element={<div loading />} />
       </Routes>
     </>
   );
