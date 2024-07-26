@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const AddInfo = ({
   setAddress,
@@ -13,12 +14,11 @@ const AddInfo = ({
   contacts,
 }) => {
   const addInfo = (event) => {
-    const newId = contacts.length * 5;
+    //const newId = contacts.length * 5;
     event.preventDefault();
 
     //create a new object which add the new input details with old contacts info
     const newContacts = {
-      id: String(newId),
       FullName: name,
       Email: email,
       PhoneNumber: number,
@@ -33,14 +33,22 @@ const AddInfo = ({
     } else if (address.length == 0) {
       alert("Please Enter Address.");
     } else {
+      //use post method to  add contacts to the server
+    axios
+    .post('http://localhost:3001/contacts', newContacts)
+    .then(response => {
+      console.log(response)
       setContacts(contacts.concat(newContacts));
       alert(`${name}, added`);
       setName("");
       setEmail("");
       setNumber("");
       setAddress("");
+    })
     }
+    
   };
+
   const nameChange = (event) => {
     setName(event.target.value);
   };
