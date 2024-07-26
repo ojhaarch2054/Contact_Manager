@@ -1,0 +1,31 @@
+{
+    "contacts" : [
+    {
+    "id": "1",
+    "FullName": "abc",
+    "Email": "abc@gmail.com",
+    "PhoneNumber": "8526985456",
+    "Address": "Colombia"
+  },
+  {
+    "id": "2",
+    "FullName": "sinchang",
+    "Email": "sinchang@gmail.com",
+    "PhoneNumber": "85478585456",
+    "Address": "Yliopistokatu"
+  },
+  {
+    "id": "3",
+    "FullName": "harry",
+    "Email": "harry@gmail.com",
+    "PhoneNumber": "8526995456",
+    "Address": "Austria"
+  },
+  {
+    "id": "4",
+    "FullName": "Raman",
+    "Email": "Raman@gmail.com",
+    "PhoneNumber": "8526985456",
+    "Address": "vienna"
+  }
+]}

@@ -2,43 +2,26 @@ import LogIn from "./components/LogIn";
 import Contact from "./components/Contact";
 import { Routes, Route } from "react-router-dom";
 import AddInfo from "./components/AddInfo";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Home from "./components/HomePage";
 import About from "./components/About";
 import SignUp from "./components/SignUp";
+//import axios to fetch data from server
+import axios from 'axios'
 
 function App() {
   //state to store contact info
-  const [contacts, setContacts] = useState([
-    {
-      id: "1",
-      FullName: "abc",
-      Email: "abc@gmail.com",
-      PhoneNumber: "8526985456",
-      Address: "Colombia",
-    },
-    {
-      id: "2",
-      FullName: "sinchang",
-      Email: "sinchang@gmail.com",
-      PhoneNumber: "85478585456",
-      Address: "Yliopistokatu",
-    },
-    {
-      id: "3",
-      FullName: "harry",
-      Email: "harry@gmail.com",
-      PhoneNumber: "8526995456",
-      Address: "Austria",
-    },
-    {
-      id: "4",
-      FullName: "Raman",
-      Email: "Raman@gmail.com",
-      PhoneNumber: "8526985456",
-      Address: "vienna",
-    },
-  ]);
+  const [contacts, setContacts] = useState([]);
+
+  //useEffect to fetch the data
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/contacts')
+      .then(response => {
+        console.log('promise fulfilled')
+        setContacts(response.data)
+      })
+  }, [])
 
   //login component's state
   //state for email inputfield
