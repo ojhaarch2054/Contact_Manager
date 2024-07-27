@@ -15,32 +15,25 @@
       "Address": "Yliopistokatu"
     },
     {
-      "id": "3",
-      "FullName": "harry",
-      "Email": "harry@gmail.com",
-      "PhoneNumber": "8526995456",
-      "Address": "Austria"
-    },
-    {
-      "id": "4",
-      "FullName": "Raman",
-      "Email": "Raman@gmail.com",
-      "PhoneNumber": "8526985456",
-      "Address": "vienna"
-    },
-    {
-      "id": "7edd",
-      "FullName": "krish",
-      "Email": "krish@gmail.com",
-      "PhoneNumber": "123456",
-      "Address": "oulu"
-    },
-    {
       "id": "3523",
       "FullName": "harry",
       "Email": "harry@gmail.com",
       "PhoneNumber": "859674",
       "Address": "oulu"
+    },
+    {
+      "id": "b236",
+      "FullName": "Raman jekky",
+      "Email": "raman@gmail.com",
+      "PhoneNumber": "75896445",
+      "Address": "Porvo"
+    },
+    {
+      "id": "780d",
+      "FullName": "prity",
+      "Email": "prity@gmail.com",
+      "PhoneNumber": "7859696",
+      "Address": "pune"
     }
   ]
 }

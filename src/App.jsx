@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 import Home from "./components/HomePage";
 import About from "./components/About";
 import SignUp from "./components/SignUp";
-//import axios to fetch data from server
-import axios from 'axios'
+//import services which helps to implement server side
+import contactsService from "./services/contacts";
 
 function App() {
   //state to store contact info
@@ -15,13 +15,11 @@ function App() {
 
   //useEffect to fetch the data
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/contacts')
-      .then(response => {
-        console.log('promise fulfilled')
-        setContacts(response.data)
-      })
-  }, [])
+    contactsService.getAll().then((data) => {
+      console.log("promise fulfilled");
+      setContacts(data);
+    });
+  }, []);
 
   //login component's state
   //state for email inputfield
@@ -32,7 +30,7 @@ function App() {
   //SignUp Component's state
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
-  const [signUpPassword2, setSignUpPassword2] = useState("")
+  const [signUpPassword2, setSignUpPassword2] = useState("");
 
   //Addinfo component's state
   const [name, setName] = useState("");
@@ -57,7 +55,19 @@ function App() {
             />
           }
         />
-         <Route path="/signUp" element={<SignUp signUpEmail={signUpEmail} signUpPassword={signUpPassword} setSignUpEmail={setSignUpEmail} setSignUpPassword={setSignUpPassword} signUpPassword2={signUpPassword2} setSignUpPassword2={setSignUpPassword2} />} />
+        <Route
+          path="/signUp"
+          element={
+            <SignUp
+              signUpEmail={signUpEmail}
+              signUpPassword={signUpPassword}
+              setSignUpEmail={setSignUpEmail}
+              setSignUpPassword={setSignUpPassword}
+              signUpPassword2={signUpPassword2}
+              setSignUpPassword2={setSignUpPassword2}
+            />
+          }
+        />
         <Route path="/home" element={<Home />} />
         <Route
           path="/add"

@@ -14,8 +14,8 @@ const Home = () => {
 
   return (
     <div className="homeNav">
-      <nav>
-        <ul className="nav justify-content-end mt-3 ">
+      <nav className="navBar fs-5 fw-bold">
+        <ul className="nav justify-content-end p-4">
           <li className="nav-item">
             <Link to="/home" className="nav-link">
               Home

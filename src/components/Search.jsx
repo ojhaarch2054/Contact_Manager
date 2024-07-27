@@ -8,7 +8,7 @@ const Search = ({setSearchInfo, searchInfo, contacts}) => {
 
   return (
     <>
-    <div className="d-flex justify-content-center align-items-center mt-5 flex-column">
+    <div className="d-flex justify-content-center align-items-center p-3 flex-column">
       <p className="lead">Search Contacts:</p>
       <input type="text" placeholder="Search" onChange={searchChange} value={searchInfo}  className="form-control w-25"/>
       </div>

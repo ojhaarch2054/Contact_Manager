@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const About = () => {
   return(
     <>
-    <nav>
-        <ul className="nav justify-content-end mt-3 ">
+    <nav className="navBar fs-5 fw-bold">
+        <ul className="nav justify-content-end p-4 ">
           <li className="nav-item">
             <Link to="/home" className="nav-link">
               Home
@@ -30,7 +30,7 @@ const About = () => {
       </nav>
 
       <div>
-      <h1>About Us </h1>
+      <h1 className="mt-5">About Us </h1>
       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique ullam hic nihil molestiae officiis obcaecati dolor repudiandae veritatis accusantium ipsam! Iste fugiat praesentium nobis quidem autem tempore, molestias reprehenderit id?</p>
       </div>
     </>

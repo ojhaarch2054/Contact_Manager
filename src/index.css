@@ -3,10 +3,21 @@
     background-size: cover;
 
 }
+.navBar{
+    /*background-image: url(photos/img1.jpg);*/
+    font-size: 2rem;
+    background-color: rgb(22, 38, 59);
+}
+
+.navBar .nav-link {
+    color: white
+}
 
 body{
-    background-image: url(photos/canva.jpg);
+    background-image: url(photos/img1.jpg) ;
     background-size: cover;
+    /*background: #6CB4EE*/
+    color: white
 }
 .contactInfo{
     font-size: 1.5rem;

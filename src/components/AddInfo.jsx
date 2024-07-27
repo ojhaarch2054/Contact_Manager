@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import axios from "axios";
+//import services which helps to implement server side
+import contactsService from "../services/contacts";
 
 const AddInfo = ({
   setAddress,
@@ -32,21 +33,21 @@ const AddInfo = ({
       alert("Please Enter Phone Number.");
     } else if (address.length == 0) {
       alert("Please Enter Address.");
+      //using some method to check whether the number is already exist in the contact list or not
+    } else if (contacts.some((contact) => contact.PhoneNumber === number)) {
+      alert("Number is already exist, Please type unique number.");
     } else {
       //use post method to  add contacts to the server
-    axios
-    .post('http://localhost:3001/contacts', newContacts)
-    .then(response => {
-      console.log(response)
-      setContacts(contacts.concat(newContacts));
-      alert(`${name}, added`);
-      setName("");
-      setEmail("");
-      setNumber("");
-      setAddress("");
-    })
+      contactsService.create(newContacts).then((response) => {
+        console.log(response);
+        setContacts(contacts.concat(newContacts));
+        setName("");
+        setEmail("");
+        setNumber("");
+        setAddress("");
+        alert(`${name}, added`);
+      });
     }
-    
   };
 
   const nameChange = (event) => {
@@ -64,8 +65,8 @@ const AddInfo = ({
 
   return (
     <>
-      <nav>
-        <ul className="nav justify-content-end mt-3 ">
+      <nav className="navBar fs-5 fw-bold">
+        <ul className="nav justify-content-end p-4">
           <li className="nav-item">
             <Link to="/home" className="nav-link">
               Home
