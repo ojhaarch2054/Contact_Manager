@@ -1,53 +1,14 @@
+//load environment variables from .env file
+require("dotenv").config();
 //import express library to create web server
 const express = require("express");
+//const mongoose = require('mongoose');
 //instance of express app
 const app = express();
-//add mmiddleware to parse incoming JSON requests
-app.use(express.json());
+const Contact = require("./models/contact");
 
-//corslibrary to enable Cross-Origin Resource Sharing
-const cors = require("cors");
-
-//use cors middleware to allow requests from different origins
-app.use(cors());
-
-let contacts = [
-  {
-    id: "1",
-    FullName: "abc",
-    Email: "abc@gmail.com",
-    PhoneNumber: "8526985456",
-    Address: "Colombia",
-  },
-  {
-    id: "2",
-    FullName: "sinchang",
-    Email: "sinchang@gmail.com",
-    PhoneNumber: "85478585456",
-    Address: "Yliopistokatu",
-  },
-  {
-    id: "3523",
-    FullName: "harry",
-    Email: "harry@gmail.com",
-    PhoneNumber: "859674",
-    Address: "oulu",
-  },
-  {
-    id: "b236",
-    FullName: "Raman jekky",
-    Email: "raman@gmail.com",
-    PhoneNumber: "75896445",
-    Address: "Porvo",
-  },
-  {
-    id: "780d",
-    FullName: "prity",
-    Email: "prity@gmail.com",
-    PhoneNumber: "7859696",
-    Address: "pune",
-  },
-];
+//array to store contact details
+let contacts = [];
 
 //middleware for logging requests
 const requestLogger = (req, res, next) => {
@@ -57,23 +18,33 @@ const requestLogger = (req, res, next) => {
   console.log("---"); //seprator for read
   next(); //calling next middleware function
 };
+//import the CORS library to enable Cross-Origin Resource Sharing
+const cors = require("cors");
+//use cors middleware to allow requests from different origins
+app.use(cors());
+app.use(express.static("dist"));
+//add mmiddleware to parse incoming JSON requests
+app.use(express.json());
 app.use(requestLogger);
 
-//define  routes to the applicetion
-//request parameter contains all of the information of the HTTP request
-//response parameter is used to define  how the request is responded to
+//middleware for handling unknown endpoints
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: "unknown endpoint" });
+};
 
 //route to get all contacts details
-app.get("/api/contacts", (req, res) => {
-  res.json(contacts);
+app.get("/api/contacts", (request, response) => {
+  Contact.find({}).then((contacts) => {
+    response.json(contacts); //respond contacts in json format
+  });
 });
 
 //fetching a single resources
 app.get("/api/contacts/:id", (request, response) => {
   //get id from request parameter
   const id = request.params.id;
+  //find the contact with the matching id in the contacts array
   const contact = contacts.find((contact) => contact.id === id);
-
   //if contact found respond with the contact detail in json form
   if (contact) {
     response.json(contact);
@@ -85,21 +56,20 @@ app.get("/api/contacts/:id", (request, response) => {
 
 //route to delete a contact by id
 //making HTTp delete request
-app.delete("/api/contacts/:id", (request, response) => {
-  const id = request.params.id.toString();
-  contacts = contacts.filter((contact) => contact.id !== id);
-
-  response.status(204).end();
+app.delete("/api/contacts/:id", (request, response, next) => {
+  //find the contact by ID and delete it from the database
+  Contact.findByIdAndDelete(request.params.id)
+    .then((result) => {
+      //if the deletion is successful, respond with a 204 status code
+      response.status(204).end();
+    })
+    //ff an error occurs, pass it to the next middleware
+    .catch((error) => error);
 });
-
-//to add new contacts to the server
-function generateUniqueId() {
-  //converting  number to a base-36 string which includes digits and letters with .toString(36)
-  return Math.random().toString(36).slice(2, 11);
-}
 
 //route to post a contact
 app.post("/api/contacts", (req, res) => {
+  //extract the request body
   const body = req.body;
 
   //conditions to chek missing fields
@@ -122,25 +92,23 @@ app.post("/api/contacts", (req, res) => {
   }
 
   //create a new contact
-  const newContact = {
-    id: generateUniqueId(), //ffunction to generate a unique ID
+  const contact = new Contact({
     FullName: body.FullName,
     Email: body.Email,
     PhoneNumber: body.PhoneNumber,
     Address: body.Address,
-  };
-  //add new contact to the  contact list
-  contacts = contacts.concat(newContact);
-  res.json(newContact);
+  });
+  //save the new contact to the database
+  contact.save().then((savedContact) => {
+    res.json(savedContact);
+  });
 });
 
-//middleware for handling unknown endpoints
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: "unknown endpoint" });
-};
+//use the unknownEndpoint middleware to handle unknown endpoints
 app.use(unknownEndpoint);
 
 //run the server at 3001 port
-app.listen(3001, () => {
-  console.log("Server running on port 3001");
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on the ${PORT}` );
 });
