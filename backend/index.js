@@ -1,14 +1,18 @@
-//load environment variables from .env file
-require("dotenv").config();
 //import express library to create web server
 const express = require("express");
-//const mongoose = require('mongoose');
 //instance of express app
 const app = express();
+//load environment variables from .env file
+require("dotenv").config();
+//const mongoose = require('mongoose');
+
 const Contact = require("./models/contact");
 
+//serve static files from the "dist" directory
+app.use(express.static("dist"));
+
 //array to store contact details
-let contacts = [];
+//let contacts = [];
 
 //middleware for logging requests
 const requestLogger = (req, res, next) => {
@@ -16,13 +20,30 @@ const requestLogger = (req, res, next) => {
   console.log("Path:  ", req.path); //request path
   console.log("Body:  ", req.body); //request body
   console.log("---"); //seprator for read
-  next(); //calling next middleware function
+  next(); //calling next middleware functionprinting of request logger
 };
+
+const errorHandler = (error, request, response, next) => {
+  //log the error message to the console for debugging purposes
+  console.error(error.message);
+  //check if the error is a CastError (e.g., invalid MongoDB ObjectId)
+  if (error.name === "CastError") {
+    //respond with a 400 Bad Request status and a custom error message
+    return response.status(400).send({ error: "malformatted id" });
+  } else if (error.name === "ValidationError") {
+    return response.status(400).json({ error: error.message });
+  }
+  //pass the error to the next error-handling middleware
+  next(error);
+};
+
 //import the CORS library to enable Cross-Origin Resource Sharing
 const cors = require("cors");
+//import the Contact model from the models directory
+const contact = require("./models/contact");
 //use cors middleware to allow requests from different origins
 app.use(cors());
-app.use(express.static("dist"));
+
 //add mmiddleware to parse incoming JSON requests
 app.use(express.json());
 app.use(requestLogger);
@@ -40,18 +61,19 @@ app.get("/api/contacts", (request, response) => {
 });
 
 //fetching a single resources
-app.get("/api/contacts/:id", (request, response) => {
-  //get id from request parameter
-  const id = request.params.id;
-  //find the contact with the matching id in the contacts array
-  const contact = contacts.find((contact) => contact.id === id);
-  //if contact found respond with the contact detail in json form
-  if (contact) {
-    response.json(contact);
-    //if no matching contact is found respond 404 status code
-  } else {
-    response.status(404).end();
-  }
+app.get("/api/contacts/:id", (request, response, next) => {
+  // Access the id parameter from the URL
+  const contactId = request.params.id;
+  // Use the contactId to find the contact in the database
+  Contact.findById(contactId)
+    .then((contact) => {
+      if (contact) {
+        response.json(contact);
+      } else {
+        response.status(404).end();
+      }
+    })
+    .catch((error) => next(error));
 });
 
 //route to delete a contact by id
@@ -64,51 +86,61 @@ app.delete("/api/contacts/:id", (request, response, next) => {
       response.status(204).end();
     })
     //ff an error occurs, pass it to the next middleware
-    .catch((error) => error);
+    .catch((error) => next(error));
 });
 
 //route to post a contact
-app.post("/api/contacts", (req, res) => {
+app.post("/api/contacts", (req, res, next) => {
   //extract the request body
   const body = req.body;
 
   //conditions to chek missing fields
   if (!body.FullName) {
-    return response.status(400).json({
+    return res.status(400).json({
       error: "FullName missing",
     });
   } else if (!body.Email) {
-    return response.status(400).json({
+    return res.status(400).json({
       error: "Email missing",
     });
   } else if (!body.PhoneNumber) {
-    return response.status(400).json({
+    return res.status(400).json({
       error: "PhoneNumber missing",
     });
   } else if (!body.Address) {
-    return response.status(400).json({
+    return res.status(400).json({
       error: "Address missing",
+    });
+  } else if (isNaN(body.PhoneNumber)) {
+    return res.status(400).json({
+      error: "PhoneNumber must be a number",
     });
   }
 
+  //extract fields from the body
+  const { FullName, Email, PhoneNumber, Address } = body;
   //create a new contact
   const contact = new Contact({
-    FullName: body.FullName,
-    Email: body.Email,
-    PhoneNumber: body.PhoneNumber,
-    Address: body.Address,
+    FullName,
+    Email,
+    PhoneNumber,
+    Address,
   });
   //save the new contact to the database
-  contact.save().then((savedContact) => {
-    res.json(savedContact);
-  });
+  contact
+    .save()
+    .then((savedContact) => {
+      res.json(savedContact);
+    })
+    .catch((error) => next(error));
 });
 
 //use the unknownEndpoint middleware to handle unknown endpoints
 app.use(unknownEndpoint);
+app.use(errorHandler);
 
 //run the server at 3001 port
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on the ${PORT}` );
+  console.log(`Server running on the ${PORT}`);
 });

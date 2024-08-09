@@ -56,31 +56,51 @@ const Contact = ({ contacts, setContacts, searchInfo, setSearchInfo }) => {
             </Link>
           </li>
         </ul>
-      
-      <Search
-        searchInfo={searchInfo}
-        setSearchInfo={setSearchInfo}
-        contacts={contacts}
-      />
+
+        <Search
+          searchInfo={searchInfo}
+          setSearchInfo={setSearchInfo}
+          contacts={contacts}
+        />
       </nav>
 
       <div className="mt-5 d-flex justify-content-center flex-column text-white contactSection">
         <h1 className="text-decoration-underline headingContact">
           Contacts Info
         </h1>
-        <ul className="contactInfo">
+        
+        <table className="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Address</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
           {filteredContacts.length > 0 ? (
             filteredContacts.map((contact, index) => (
-              <li key={index}>
-                {contact.FullName} - {contact.Email} - {contact.PhoneNumber} -{" "}
-                {contact.Address}{" "}
-                <button onClick={() => deleteBtn(contact.id)}>Delete</button>
-              </li>
+              <tr key={index}>
+                <td>{contact.FullName}</td>
+                <td>{contact.Email}</td>
+                <td>{contact.PhoneNumber}</td>
+                <td>{contact.Address}</td>
+                <td>
+                  <button className="btn btn-danger" onClick={() => deleteBtn(contact.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
             ))
           ) : (
-            <li>No contacts found</li>
+            <tr>
+              <td colSpan="5" className="text-center">No contacts found</td>
+            </tr>
           )}
-        </ul>
+        </tbody>
+      </table>
       </div>
     </>
   );

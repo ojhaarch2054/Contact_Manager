@@ -1,5 +1,6 @@
 //import mongose library to interact with mongodb
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 //set mongoose to use the old query parser
 mongoose.set("strictQuery", false);
@@ -23,10 +24,23 @@ mongoose
 
 //define a schema for a contact
 const contactSchema = new mongoose.Schema({
-  FullName: String,
-  Email: String,
-  PhoneNumber: String,
-  Address: String,
+  FullName: {
+    type: String,
+    required: true,
+  },
+  Email: {
+    type: String,
+    required: true,
+    match: [/.+\@.+\..+/, "Please fill a valid email address"],
+  },
+  PhoneNumber: {
+    type: Number,
+    required: true,
+  },
+  Address: {
+    type: String,
+    required: true,
+  },
 });
 
 //modify the to json method of the schema to transform the returned object

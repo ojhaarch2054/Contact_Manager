@@ -6,8 +6,8 @@ Content-Type: application/json
 
 {
     "FullName": "payal",
-    "Email": "payal@gmail.com",
-    "PhoneNumber": "4585965456",
+    "Email": "payal@mail.com",
+    "PhoneNumber": 45859654561233,
     "Address": "suomi"
 }
 
