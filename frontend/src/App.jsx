@@ -8,6 +8,8 @@ import About from "./components/About";
 import SignUp from "./components/SignUp";
 //import services which helps to implement server side
 import contactsService from "./services/contacts";
+import Edit from "./components/Edit";
+import ShowContacts from "./components/ShowContacts";
 
 function App() {
   //state to store contact info
@@ -98,6 +100,8 @@ function App() {
             />
           }
         />
+         <Route path="/edit" element={<Edit />} />
+         <Route path="/contact/details" element={<ShowContacts />} />
         <Route path="/signup" element={<div loading />} />
       </Routes>
     </>

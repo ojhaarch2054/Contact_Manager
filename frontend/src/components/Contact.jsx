@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import contactsService from "../services/contacts";
+//import icon for action
+import { FaInfoCircle, FaEdit, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import ShowContacts from "./ShowContacts";
 
 const Contact = ({ contacts, setContacts, searchInfo, setSearchInfo }) => {
   //for delete functionality
@@ -23,6 +27,17 @@ const Contact = ({ contacts, setContacts, searchInfo, setSearchInfo }) => {
         });
     }
   };
+
+  const navigate = useNavigate();
+  
+  const editBtn = () => {
+    navigate("/edit");
+
+  }
+
+  const showContactsBtn = () => {
+    navigate("/contact/details")
+  }
 
   //filtering contact based on the search input if contact exist and have length greater than 0
   const filteredContacts =
@@ -68,39 +83,52 @@ const Contact = ({ contacts, setContacts, searchInfo, setSearchInfo }) => {
         <h1 className="text-decoration-underline headingContact">
           Contacts Info
         </h1>
-        
         <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Full Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Address</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredContacts.length > 0 ? (
-            filteredContacts.map((contact, index) => (
-              <tr key={index}>
-                <td>{contact.FullName}</td>
-                <td>{contact.Email}</td>
-                <td>{contact.PhoneNumber}</td>
-                <td>{contact.Address}</td>
-                <td>
-                  <button className="btn btn-danger" onClick={() => deleteBtn(contact.id)}>
-                    Delete
-                  </button>
+          <thead>
+            <tr>
+              <th scope="col">Full Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">Address</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredContacts.length > 0 ? (
+              filteredContacts.map((contact, index) => (
+                <tr key={index}>
+                  <td>{contact.FullName}</td>
+                  <td>{contact.Email}</td>
+                  <td>{contact.PhoneNumber}</td>
+                  <td>{contact.Address}</td>
+                  <td>
+                    <button className="btn btn-info me-2" 
+                    onClick={() =>showContactsBtn(contact.id)}>
+                      <FaInfoCircle />
+                    </button>
+                    <button className="btn btn-warning me-2"
+                    onClick={() => editBtn(contact.id)}
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteBtn(contact.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="text-center">
+                  No contacts found
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="text-center">No contacts found</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
       </div>
     </>
   );

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 //importing useNavigate
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import add_contact from "../photos/add_contact.webp";
 
 const Home = () => {
   //create  navigate function
@@ -8,7 +8,7 @@ const Home = () => {
 
   //onClick functiion for getStarted Button
   const getStartedBtn = () => {
-    //when click the btn it navigates the add contact 
+    //when click the btn it navigates the add contact
     navigate("/add");
   };
 
@@ -38,13 +38,27 @@ const Home = () => {
           </li>
         </ul>
       </nav>
-      <div className="mt-5 pt-5 text-white">
-        <h1 className="display-1 mt-5">Add Contact</h1>
-        <p className="lead text-right  w-25 text-wrap">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-          in,hfhjhjhksn{" "}
-        </p>
-        <button onClick={getStartedBtn}>Get Started</button>
+
+      <div className="container mt-5 p-5">
+        <div className="col-6 ">
+          <img
+            src={add_contact}
+            alt="Description of the image"
+            className="img-fluid shadow-lg rounded position-absolute w-25"
+          />
+        </div>
+        <div className="row d-flex justify-content-end position-absolute mt-5 w-75 mx-5 ">
+          <div className="col-6">
+            <h1 className="mb-3">Add Contact</h1>
+            <p className="lead text-start">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
+              ipsum dolor sit amet consectetur adipisicing elit.{" "}
+            </p>
+            <button onClick={getStartedBtn} className="h4 text-black">
+              Get Started
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
