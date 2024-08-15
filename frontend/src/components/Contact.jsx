@@ -4,14 +4,13 @@ import contactsService from "../services/contacts";
 //import icon for action
 import { FaInfoCircle, FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import ShowContacts from "./ShowContacts";
 
 const Contact = ({ contacts, setContacts, searchInfo, setSearchInfo }) => {
+  const navigate = useNavigate();
   //for delete functionality
   const deleteBtn = (id) => {
     //to findd the contact to delete by its id
     const contactToDelete = contacts.find((contact) => contact.id === id);
-
     //to confirm with the user if they really want to delete the contact or not
     if (window.confirm(`Delete ${contactToDelete.FullName} ?`)) {
       //if yes then call the remove method from the contactsService to delete the contact from the server
@@ -28,24 +27,28 @@ const Contact = ({ contacts, setContacts, searchInfo, setSearchInfo }) => {
     }
   };
 
-  const navigate = useNavigate();
-  
-  const editBtn = () => {
-    navigate("/edit");
+  const editBtn = (id) => {
+    navigate(`/edit/${id}`);
+  };
 
-  }
+  const showContactsBtn = (id) => {
+    navigate(`/contact/details/${id}`);
+  };
 
-  const showContactsBtn = () => {
-    navigate("/contact/details")
-  }
+  //create a new array called filteredContacts by filtering the contacts array
+  const filteredContacts = contacts.filter((contact) => {
+    //check if the contact exists and has a FullName property
+    if (contact && contact.FullName) {
+      //convert the FullName to lowercase and check if it includes the searchInfo (also in lowercase)
+      if (contact.FullName.toLowerCase().includes(searchInfo.toLowerCase())) {
+        //if it does, include this contact in the filteredContacts array
+        return true;
+      }
+    }
+    //if any of the above conditions are not met, do not include this contact
+    return false;
+  });
 
-  //filtering contact based on the search input if contact exist and have length greater than 0
-  const filteredContacts =
-    contacts && contacts.length > 0
-      ? contacts.filter((contact) =>
-          contact.FullName.toLowerCase().includes(searchInfo.toLowerCase())
-        )
-      : [];
   return (
     <>
       <nav className="navBar fs-5 fw-bold">
@@ -93,7 +96,7 @@ const Contact = ({ contacts, setContacts, searchInfo, setSearchInfo }) => {
               <th scope="col">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-capitalize">
             {filteredContacts.length > 0 ? (
               filteredContacts.map((contact, index) => (
                 <tr key={index}>
@@ -102,20 +105,16 @@ const Contact = ({ contacts, setContacts, searchInfo, setSearchInfo }) => {
                   <td>{contact.PhoneNumber}</td>
                   <td>{contact.Address}</td>
                   <td>
-                    <button className="btn btn-info me-2" 
-                    onClick={() =>showContactsBtn(contact.id)}>
-                      <FaInfoCircle />
+                    <button className="btn btn-info me-2">
+                      <FaInfoCircle
+                        onClick={() => showContactsBtn(contact.id)}
+                      />
                     </button>
-                    <button className="btn btn-warning me-2"
-                    onClick={() => editBtn(contact.id)}
-                    >
-                      <FaEdit />
+                    <button className="btn btn-warning me-2">
+                      <FaEdit onClick={() => editBtn(contact.id)} />
                     </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => deleteBtn(contact.id)}
-                    >
-                      <FaTrash />
+                    <button className="btn btn-danger">
+                      <FaTrash onClick={() => deleteBtn(contact.id)} />
                     </button>
                   </td>
                 </tr>

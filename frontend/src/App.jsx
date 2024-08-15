@@ -100,8 +100,11 @@ function App() {
             />
           }
         />
-         <Route path="/edit" element={<Edit />} />
-         <Route path="/contact/details" element={<ShowContacts />} />
+        <Route
+          path="/edit/:id"
+          element={<Edit setContacts={setContacts} contacts={contacts} />}
+        />
+        <Route path="/contact/details/:id" element={<ShowContacts />} />
         <Route path="/signup" element={<div loading />} />
       </Routes>
     </>

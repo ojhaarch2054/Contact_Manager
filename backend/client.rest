@@ -12,4 +12,16 @@ Content-Type: application/json
 }
 
 ###
+PUT http://localhost:3001/api/contacts/66b686c55f0267564c0d0dad
+Content-Type: application/json
+
+{
+    "FullName": "updated name",
+    "Email": "updated@mail.com",
+    "PhoneNumber": 1234567890,
+    "Address": "updated address"
+}
+
+
+###
 DELETE http://localhost:3001/api/contacts/aoi4i88vf

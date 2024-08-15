@@ -135,6 +135,35 @@ app.post("/api/contacts", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+//route to update contacts
+app.put('/api/contacts/:id', (request, response, next) => {
+  const body = request.body
+
+  //create an object with the updated contact information
+  const contact = {
+    FullName: body.FullName,
+    Email: body.Email,
+    PhoneNumber: body.PhoneNumber,
+    Address: body.Address
+  }
+//find the contact by ID and update it
+  Contact.findByIdAndUpdate(
+    request.params.id, //id of the contact to update
+    contact, //updated contact data
+    { new: true, runValidators: true, context: 'query' }
+  )
+    .then(updatedContact => {
+      if (updatedContact) {
+        // If the contact was found and updated, send the updated contact as the response
+        response.json(updatedContact);
+      } else {
+        // If the contact was not found, send a 404 Not Found response
+        response.status(404).end();
+      }
+    })
+    .catch(error => next(error)); // Pass any errors to the error handling middleware
+});
+
 //use the unknownEndpoint middleware to handle unknown endpoints
 app.use(unknownEndpoint);
 app.use(errorHandler);
