@@ -63,7 +63,7 @@ const Edit = ({ setContacts, contacts }) => {
         //console.log("Update successful", response);
         //on successful update, update the contacts state with the new data
         setContacts(contacts.map((c) => (c.id !== id ? c : response.data)));
-        alert("updatedd");
+        alert("Updated");
         //navigate to the "/contact" route after successful update
         navigate("/contact");
         //refresh the page
@@ -105,16 +105,16 @@ const Edit = ({ setContacts, contacts }) => {
 
       <h3>Fetching clicked contact details to edit........</h3>
 
-      <div className="card w-50 mt-5 mx-5 d-flex justify-content-center text-black">
+      <div className="d-flex justify-content-center align-items-center">
         <div className="card-body d-flex justify-content-center mb-5">
           <form
-            className=" col-auto w-50 d-flex mt-5 flex-column Black"
+            className=" col-auto w-75 d-flex mt-5 flex-column"
             onSubmit={editSubmit}
           >
-            <label className="col-sm-3 col-form-label">Full Name</label>
+            <label className="col-form-label">Full Name</label>
             <input
               type="text"
-              className="card-title"
+              className="form-control"
               name="FullName"
               value={contact.FullName}
               onChange={handleChange}
@@ -122,7 +122,7 @@ const Edit = ({ setContacts, contacts }) => {
             <label className="col-sm-3 col-form-label">Email</label>
             <input
               type="email"
-              className="card-title"
+              className="form-control"
               name="Email"
               value={contact.Email}
               onChange={handleChange}
@@ -130,7 +130,7 @@ const Edit = ({ setContacts, contacts }) => {
             <label className="col-sm-4 col-form-label">Phone Number</label>
             <input
               type="text"
-              className="card-title"
+              className="form-control"
               name="PhoneNumber"
               value={contact.PhoneNumber}
               onChange={handleChange}
@@ -138,7 +138,7 @@ const Edit = ({ setContacts, contacts }) => {
             <label className="col-sm-3 col-form-label">Address</label>
             <input
               type="text"
-              className="card-title"
+              className="form-control"
               name="Address"
               value={contact.Address}
               onChange={handleChange}

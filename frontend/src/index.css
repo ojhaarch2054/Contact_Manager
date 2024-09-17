@@ -30,4 +30,90 @@ body{
     background-color: rgb(23, 203, 122);
 
 }
+.form-container {
+    height: 100vh;
+}
 
+.form-content {
+    background-color: #0d2b43;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    color: white;
+}
+
+@media (max-width: 1200px) {
+    .navBar {
+        font-size: 1.8rem;
+    }
+
+    .contactInfo {
+        font-size: 1.4rem;
+    }
+
+    .headingContact {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .navBar {
+        font-size: 1.6rem;
+    }
+
+    .contactInfo {
+        font-size: 1.3rem;
+    }
+
+    .headingContact {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navBar {
+        font-size: 1.4rem;
+    }
+
+    .contactInfo {
+        font-size: 1.2rem;
+    }
+
+    .headingContact {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navBar {
+      font-size: 1.2rem;
+    }
+    .homeNav .container {
+      padding: 1rem;
+    }
+    .homeNav h1 {
+      font-size: 2rem;
+    }
+    .contactInfo {
+        font-size: 1.2rem;
+    }
+    .headingContact {
+        font-size: 1.8rem;
+    }
+    .card {
+        width: 90%;
+    }
+    .homeNav p {
+      font-size: 1rem;
+    }
+    .homeNav button {
+      font-size: 1rem;
+    }
+    .form-content {
+        width: 90%;
+        padding: 1rem;
+    }
+  }

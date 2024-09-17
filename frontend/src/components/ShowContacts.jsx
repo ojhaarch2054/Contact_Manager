@@ -49,7 +49,7 @@ const ShowContacts = () => {
       </nav>
 
       <div className=" d-flex justify-content-center row mt-5">
-        <h1 className="text-decoration-underline">Details of {contact.FullName} : </h1>
+        <h1 className="text-decoration-underline text-center">Details of {contact.FullName} : </h1>
         <div className=" d-flex justify-content-center align-items-center mt-5">
           <ul className="list-group list-group-flush w-50 vh-100 p-4 text-capitalize">
             <li className="list-group-item p-4">Full Name: {contact.FullName}</li>

@@ -1,14 +1,10 @@
-//importing useNavigate
 import { Link, useNavigate } from "react-router-dom";
 import add_contact from "../photos/add_contact.webp";
 
 const Home = () => {
-  //create  navigate function
   const navigate = useNavigate();
 
-  //onClick functiion for getStarted Button
   const getStartedBtn = () => {
-    //when click the btn it navigates the add contact
     navigate("/add");
   };
 
@@ -40,21 +36,24 @@ const Home = () => {
       </nav>
 
       <div className="container mt-5 p-5">
-        <div className="col-6 ">
-          <img
-            src={add_contact}
-            alt="Description of the image"
-            className="img-fluid shadow-lg rounded position-absolute w-25"
-          />
-        </div>
-        <div className="row d-flex justify-content-end position-absolute mt-5 w-75 mx-5 ">
-          <div className="col-6">
+        <div className="row">
+          <div className="col-md-6 col-12 mb-4">
+            <img
+              src={add_contact}
+              alt="Description of the image"
+              className="img-fluid shadow-lg rounded w-100"
+            />
+          </div>
+          <div className="col-md-6 col-12 d-flex flex-column justify-content-center">
             <h1 className="mb-3">Add Contact</h1>
             <p className="lead text-start">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-              ipsum dolor sit amet consectetur adipisicing elit.{" "}
+              ipsum dolor sit amet consectetur adipisicing elit.
             </p>
-            <button onClick={getStartedBtn} className="h4 text-black">
+            <button
+              onClick={getStartedBtn}
+              className="btn btn-primary h4 text-white"
+            >
               Get Started
             </button>
           </div>
