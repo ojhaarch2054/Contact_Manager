@@ -27,19 +27,19 @@ const LogIn = ({ setEmailId, setPassword, password, emailId }) => {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center vh-100 bg-secondary text-black logIn ">
+      <div className="d-flex justify-content-center align-items-center vh-100 bg-secondary logIn ">
         <form
           onSubmit={submitLogIn}
           className="text-center fw-bold shadow-lg p-3 mb-5 bg-muted rounded w-50 h-60"
         >
-          <span className="display-1 ">Welcome,</span>
+          <span className="display-4 ">Welcome,</span>
           <br /> <p className="h4">To Your Smart Contact Manager</p> <br />
           <input
             type="email"
             placeholder="Email Id"
             onChange={changeEmail}
             value={emailId}
-            className="h2 "
+            className="form-control mb3 "
           />
           <br />
           <input
@@ -47,10 +47,10 @@ const LogIn = ({ setEmailId, setPassword, password, emailId }) => {
             placeholder="Password"
             onChange={changePassword}
             value={password}
-            className="h2"
+            className="form-control mb3"
           />
           <br />
-          <button type="submit" className="h2 text-black logInBtn rounded">
+          <button type="submit" className="btn btn-success w-100">
             Log In
           </button>
           <p className="mt-4 fs-5 fw-light ">

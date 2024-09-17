@@ -31,19 +31,19 @@ const SignUp = ({ setSignUpEmail, signUpEmail, signUpPassword, setSignUpPassword
 
 
     return(
-        <div className="d-flex justify-content-center align-items-center vh-100 bg-secondary text-black logIn ">
+        <div className="d-flex justify-content-center align-items-center vh-100 bg-secondary logIn ">
         <form
           onSubmit={submitSignUp}
           className="text-center fw-bold shadow-lg p-3 mb-5 bg-muted rounded w-50 h-60"
         >
-          <span className="display-1 ">Sign Up,</span>
+          <span className="display-4 ">Sign Up,</span>
           <br /> <p className="h4">To log in Your Smart Contact Manager</p> <br />
           <input
             type="email"
             placeholder="Email Id"
             onChange={changeSignUpId}
             value={signUpEmail}
-            className="h2 "
+            className="form-control mb-3 "
           />
           <br />
           <input
@@ -51,17 +51,17 @@ const SignUp = ({ setSignUpEmail, signUpEmail, signUpPassword, setSignUpPassword
             placeholder="Password"
             onChange={changeSignUpPassword}
             value={signUpPassword}
-            className="h2"
+            className="form-control mb-3"
           /> <br />
           <input
             type="password"
             placeholder="Confirm Password"
             onChange={changeSignUpPassword2}
             value={signUpPassword2}
-            className="h2"
+            className="form-control mb-3"
           />
           <br />
-          <button type="submit" className="h2 text-black logInBtn rounded">
+          <button type="submit" className="btn btn-success w-100">
             Sign Up
           </button>
         </form>

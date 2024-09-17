@@ -85,6 +85,12 @@ body{
     .headingContact {
         font-size: 1.8rem;
     }
+    .logIn {
+        padding: 1rem;
+      }
+      .logIn form {
+        width: 90%;
+      }
 }
 
 @media (max-width: 576px) {
@@ -116,4 +122,10 @@ body{
         width: 90%;
         padding: 1rem;
     }
+    .logIn {
+        padding: 1rem;
+      }
+      .logIn form {
+        width: 100%;
+      }
   }
